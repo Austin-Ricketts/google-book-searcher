@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Nav from "./components/Nav";
+import Jumbotron from "./components/Jumbotron";
+// import Search from "./Search";
+// import Saved from "./Saved";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Nav/>
+        <Jumbotron>
+          <h1>Search Google Books</h1>
+          <h3>and save them for later</h3>
+        </Jumbotron>
+        {/* <Route exact path="/" component={Search} />
+        <Route exact path="/saved" component={Saved} /> */}
+      </div>
+    </Router>
   );
 }
 
