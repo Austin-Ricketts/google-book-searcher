@@ -17,7 +17,7 @@ function Header() {
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link eventKey="2" as={Link} to="/saved" className="navbar__link--active">
-                        Your Saved Books
+                        View Your Saved Books
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
