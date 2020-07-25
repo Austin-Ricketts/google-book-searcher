@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input } from "../../components/Form";
+import { List, ListItem } from "../../components/List";
+import SaveBtn from "../../components/SaveBtn";
 
 function Search () {
+    const [books, setBooks] = useState([])
     const [inputObject, setinputObject] = useState({
         title: "",
         author: ""
@@ -18,6 +21,7 @@ function Search () {
 
     return (
         <Container fluid>
+            <Row>
             <form>
               <Input
                 onChange={handleInputChange}
@@ -38,6 +42,28 @@ function Search () {
                 Submit Book
               </FormBtn>
             </form>
+            </Row>
+            <Row>
+            {books.length ? (
+              <List>
+                {books.map(book => {
+                  return (
+                    <ListItem key={book._id}>
+                      <a href={"/books/" + book._id}>
+                        <strong>
+                          {book.title} by {book.author}
+                        </strong>
+                      </a>
+                      {/* need to make this a save button */}
+                      {/* <SaveBtn onClick={() => deleteBook(book._id)} /> */}
+                    </ListItem>
+                  );
+                })}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+            </Row>
         </Container>
     )
 
