@@ -1,9 +1,26 @@
-const db = require("../models");
 const axios = require("axios");
+const db = require("../models");
 
 module.exports = {
-    findBook: function (req, res) {
-        axios.get("https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=AIzaSyD-sPUrvKq_F_-pld1fxyNjHIL2uVIywM0")
-        .then(dbModel => res.json(dbModel))
-      } 
-    }
+  findBook: function(req, res) {
+    const { query: params } = req;
+    axios
+      .get("https://www.googleapis.com/books/v1/volumes", {
+        params
+      })
+      // .then(results => console.log(results))
+      .then(results =>
+        results.data.items.filter(
+          result =>
+            result.volumeInfo.title &&
+            result.volumeInfo.infoLink &&
+            result.volumeInfo.authors &&
+            result.volumeInfo.description &&
+            result.volumeInfo.imageLinks &&
+            result.volumeInfo.imageLinks.thumbnail
+        )
+      )
+      .then(books => res.json(books))
+      .catch(err => res.status(422).json(err));
+  }
+};

@@ -49,11 +49,10 @@ function Search () {
                 {books.map(book => {
                   return (
                     <ListItem key={book._id}>
-                      <a href={"/books/" + book._id}>
-                        <strong>
-                          {book.title} by {book.author}
-                        </strong>
-                      </a>
+                        <p>{book.title}</p>
+                        <p>{book.author}</p>
+                        <p>{book.description}</p>
+                        <a>{book.image}</a>
                       {/* need to make this a save button */}
                       {/* <SaveBtn onClick={() => deleteBook(book._id)} /> */}
                     </ListItem>
