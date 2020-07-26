@@ -3,20 +3,42 @@ import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input } from "../../components/Form";
 import { List, ListItem } from "../../components/List";
 import SaveBtn from "../../components/SaveBtn";
+import API from "../../utils/API";
 
 function Search () {
     const [books, setBooks] = useState([])
     const [inputObject, setinputObject] = useState({
         title: "",
         author: ""
-        // description: "",
-        // image: "",
-        // link: ""
     })
+
+    useEffect(() => {
+      loadBooks()
+    }, [])
+  
+    // Loads all books and sets them to books
+    function loadBooks() {
+      API.getBooks()
+        .then(res => 
+          setBooks(res.data.items)
+        )
+        .catch(err => console.log(err));
+    };
 
     function handleInputChange(event) {
         const { name, value } = event.target;
         setinputObject({...inputObject, [name]: value})
+    };
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      if (inputObject.title && inputObject.author) {
+        API.getBooks(inputObject.title)
+        .then(res => 
+          setBooks(res.data.items)
+        )
+        .catch(err => console.log(err));
+      }
     };
 
     return (
@@ -37,7 +59,7 @@ function Search () {
               />
               <FormBtn
                 disabled={!(inputObject.author && inputObject.title)}
-                // onClick={handleFormSubmit}
+                onClick={handleFormSubmit}
               >
                 Submit Book
               </FormBtn>
@@ -48,11 +70,11 @@ function Search () {
               <List>
                 {books.map(book => {
                   return (
-                    <ListItem key={book._id}>
-                        <p>{book.title}</p>
-                        <p>{book.author}</p>
-                        <p>{book.description}</p>
-                        <a>{book.image}</a>
+                    <ListItem key={book.id}>
+                        <p>{book.volumeInfo.title}</p>
+                        <p>{book.volumeInfo.authors.join(", ")}</p>
+                        <p>{book.volumeInfo.description}</p>
+                        <a href={book.volumeInfo.imageLinks.thumbnail}></a>
                       {/* need to make this a save button */}
                       {/* <SaveBtn onClick={() => deleteBook(book._id)} /> */}
                     </ListItem>

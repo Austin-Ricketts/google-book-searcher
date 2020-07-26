@@ -19,10 +19,10 @@ function Saved () {
                             {books.map(book => {
                             return (
                                 <ListItem key={book._id}>
-                                    <p>{book.title}</p>
-                                    <p>{book.author}</p>
-                                    <p>{book.description}</p>
-                                    <a>{book.image}</a>
+                                    <p>{book.volumeInfo.title}</p>
+                                    <p>{book.volumeInfo.author}</p>
+                                    <p>{book.volumeInfo.description}</p>
+                                    <a href={book.volumeInfo.imageLinks.thumbnail}></a>
                                 <ViewBtn onClick={book.link}></ViewBtn>
                                 <DeleteBtn onClick={() => deleteBook(book._id)} />
                                 </ListItem>

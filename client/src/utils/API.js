@@ -1,12 +1,13 @@
 import axios from "axios";
 
+
 export default {
   // Gets all books
   getBooks: function(q) {
     return axios.get("/api/books", {params: {q: "title:" + q}});
   },
   // Gets the book with the given id
-  getBook: function() {
+  getSaved: function() {
     return axios.get("/api/books/");
   },
   // Deletes the book with the given id
